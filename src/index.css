@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@media (min-width:1025px) and (min-width:1281px) {
+    ::-webkit-input-placeholder {
+       /* WebKit browsers */
+        color: transparent;
+   }
+    :-moz-placeholder {
+       /* Mozilla Firefox 4 to 18 */
+        color: transparent;
+   }
+    ::-moz-placeholder {
+       /* Mozilla Firefox 19+ */
+        color: transparent;
+   }
+    :-ms-input-placeholder {
+       /* Internet Explorer 10+ */
+        color: transparent;
+   }
+    input::placeholder {
+        color: transparent;
+   }
+    textarea::-webkit-input-placeholder {
+       /* WebKit browsers */
+        color: transparent;
+   }
+    textarea:-moz-placeholder {
+       /* Mozilla Firefox 4 to 18 */
+        color: transparent;
+   }
+    textarea::-moz-placeholder {
+       /* Mozilla Firefox 19+ */
+        color: transparent;
+   }
+    textarea:-ms-input-placeholder {
+       /* Internet Explorer 10+ */
+        color: transparent;
+   }
+    textarea::placeholder {
+        color: transparent;
+   }
+}
+
+body{
+     overflow: hidden;
+}
+
+/* @media (min-width: 1536px){
+     .w-\[492px\] {
+          width: 450px;
+      }
+      .w-60{
+          width: 222px;
+      }
+} */
