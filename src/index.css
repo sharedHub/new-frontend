@@ -3,6 +3,8 @@
 @tailwind utilities;
 
 
+
+
 @media (min-width:1025px) and (min-width:1281px) {
     ::-webkit-input-placeholder {
        /* WebKit browsers */

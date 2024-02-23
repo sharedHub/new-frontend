@@ -28,6 +28,7 @@ export default {
       inputcolor:'#616161',
       "dark-purple": "#081A51",
       "light-white": "rgba(255,255,255,0.17)",
+      buttoncolor:"#212F51",
     },
     extend: {},
   },

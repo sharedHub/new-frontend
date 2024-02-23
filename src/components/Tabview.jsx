@@ -72,20 +72,20 @@ const TabView = ({ tabs }) => {
                     activeTab === tab.id
                       ? "border-primary text-primary text-white bg-themecolor rounded-[9px]"
                       : "border-transparent text-textcolor hover:text-gray-700"
-                  } py-1.5 px-2 w-fit text-center inline-flex items-center justify-center text-sm font-semibold focus:outline-none ml-4 mr-2 mt-2 mb-2`}
+                  } py-1.5 px-2 w-fit text-center inline-flex items-center justify-center text-sm font-semibold focus:outline-none m-2`}
                 >
                   {tab.title}
                 </button>
               ))}
           </div>
-          <div className="grid gap-3 grid-cols-6 py-1 px-1">
+          {/* <div className="grid gap-3 grid-cols-6 py-1 px-1">
               <button className="bg-themecolor text-white rounded-lg p-2 h-10 font-semibold text-sm	 flex items-center justify-center">
                   Create <IoCreateSharp className="ml-1" />
               </button>
               <button className="bg-themecolor text-white rounded-lg p-2 h-10 font-semibold text-sm	 flex items-center justify-center">
                   Edit <RiEditCircleFill className="ml-1" />
-              </button>
-          </div>
+              </button>          
+          </div> */}
 
           <form className="w-5/12">
             <div className="relative parent">
@@ -107,7 +107,7 @@ const TabView = ({ tabs }) => {
                 type="text"
                 data-dropdown-toggle="dropdown"
                 placeholder="Search"
-                className="tracking-wide italic w-full py-1 pl-3 pr-4 h-12 text-lg border rounded-2xl outline-none border-textcolor focus:bg-white focus:border-gray-400 font-medium"
+                className="tracking-wide italic w-full py-1 pl-3 pr-4 h-10 text-lg border rounded-2xl outline-none border-textcolor focus:bg-white focus:border-gray-400 font-medium"
                 onClick={handleSearch}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
@@ -150,7 +150,7 @@ const TabView = ({ tabs }) => {
           {tabs &&
             tabs.map((tab) =>
               activeTab === tab.id ? (
-                <div key={tab.id} className="text-black">
+                <div key={tab.id}>
                   {tab.content}
                 </div>
               ) : null

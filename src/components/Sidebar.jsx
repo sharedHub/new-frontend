@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import './Sidebar.css';
+
   const Sidebar = () => {
     const [open, setOpen] = useState(true);
     const Menus = [
