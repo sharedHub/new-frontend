@@ -14,7 +14,7 @@ const TabView = ({ tabs }) => {
     const filteredData = userData.filter((item) =>
       item.Account_Description.toLowerCase().includes(query.toLowerCase())
     );
-    console.log(filteredData);
+    // console.log(filteredData);
     setFilteredData(filteredData);
   }, [query, userData]);
 
@@ -122,25 +122,36 @@ const TabView = ({ tabs }) => {
                   }  absolute  bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow mb-4`}
                   id="dropdown"
                 >
-                  <table>
-                    <tbody>
-                      {filteredData.length === 0 ? (
-                        <tr>
-                          <td>No data found.</td>
-                        </tr>
-                      ) : (
-                        filteredData.map((element) => (
-                          <tr key={element.id}>
-                            <td id={element.id}>
-                              {element.Account_Description}
+                  <div className="overflow-x-auto max-w-full max-h-80">
+                    <table className="table-auto w-full">
+                      <tbody className="block overflow-y-auto">
+                        {filteredData.length === 0 ? (
+                          <tr>
+                            <td colSpan="3" className="px-4 py-2">
+                              No data found.
                             </td>
-                            <td>{element.Account_Email}</td>
-                            <td>{element.Account_Phone}</td>
                           </tr>
-                        ))
-                      )}
-                    </tbody>
-                  </table>
+                        ) : (
+                          filteredData.map((element) => (
+                            <tr
+                              key={element.id}
+                              className="bg-gray-100 hover:bg-gray-200"
+                            >
+                              <td className="px-4 py-2" id={element.id}>
+                                {element.Account_Description}
+                              </td>
+                              <td className="px-4 py-2">
+                                {element.Account_Email}
+                              </td>
+                              <td className="px-4 py-2">
+                                {element.Account_Phone}
+                              </td>
+                            </tr>
+                          ))
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </>
             </div>
@@ -150,9 +161,7 @@ const TabView = ({ tabs }) => {
           {tabs &&
             tabs.map((tab) =>
               activeTab === tab.id ? (
-                <div key={tab.id}>
-                  {tab.content}
-                </div>
+                <div key={tab.id}>{tab.content}</div>
               ) : null
             )}
         </div>

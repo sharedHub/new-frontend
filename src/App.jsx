@@ -10,7 +10,8 @@ function App() {
     <Header/>
     <div className="flex">
     <Sidebar/>
-    <SGM/>
+    {/* <SGM/> */}
+    <LAC/>
     </div>
       
 
