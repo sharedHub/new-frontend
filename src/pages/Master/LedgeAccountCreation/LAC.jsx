@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef,useEffect } from "react";
 import Sidebar from "../../../components/Sidebar";
 import TabView from "../../../components/Tabview";
 import avatar from "../../../assets/Cartoon01.png";
@@ -22,53 +22,52 @@ import { MdOutlineDelete } from "react-icons/md";
 import { CiCirclePlus } from "react-icons/ci";
 import { FaPlusCircle } from "react-icons/fa";
 import { TreeView } from "../../../components/TreeView";
+import axios from 'axios';
 const LAC = () => {
-  const treeData = [
-    {
-      label: "Node 1",
-      children: [
-        {
-          label: "Node 1.1",
-          children: [
-            {
-              label: "Node 1.1.1",
-              children: [],
-            },
-            {
-              label: "Node 1.1.2",
-              children: [],
-            },
-          ],
-        },
-        {
-          label: "Node 1.2",
-          children: [],
-        },
-      ],
-    },
-    {
-      label: "Node 2",
-      children: [
-        {
-          label: "Node 2.1",
-          children: [
-            {
-              label: "Node 2.1.1",
-              children: [],
-            },
-            {
-              label: "Node 2.1.2",
-              children: [],
-            },
-          ],
-        },
-        {
-          label: "Node 2.2",
-          children: [],
-        },
-      ],
-    },
-  ];
+
+  const [masterGroup, setMasterGroup] = useState("");
+  const [subGroup, setSubGroup] = useState("");
+  const [treeData, setTreeData] = useState([]);
+  const [data, setData] = useState({ sch_description: "", master: "" });
+  const handleMasterGroupChange = (e) => {
+    setMasterGroup(e.target.value);
+    setData({ sch_description: masterGroup });
+  };
+
+  const handleSubGroupChange = (event) => {
+    setSubGroup(event.target.value);
+    setData({ master: subGroup });
+  };
+  const handleSave = async () => {
+    try {
+      const response = await axios.post(
+        "http://192.168.0.183:3400/api/addSubData",
+        data
+      );
+      // If successfully saved, fetch the updated tree data
+      fetchTreeData();
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  const fetchTreeData = async () => {
+    try {
+      const response = await axios.get(
+        "http://192.168.0.183:3100/api/getAllBssList"
+      );
+      setTreeData(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error fetching tree data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTreeData();
+  }, []);
+
+
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
@@ -135,7 +134,7 @@ const LAC = () => {
           console.error("Error accessing the camera:", error);
         });
     } else {
-      console.error("getUserMedia API not supported");
+      console.error("PostUserMedia API not supported");
     }
   };
 
@@ -196,12 +195,7 @@ const LAC = () => {
     event.preventDefault();
     handleClick();
   };
-  const options = [
-    { value: "Select", label: "Select" },
-    // { value: "bucharest", label: "Bucharest" },
-    // { value: "london", label: "London" },
-    // { value: "washington", label: "Washington" }
-  ];
+  const options = [{ value: "Select", label: "Select" }];
 
   return (
     <div className="w-full">
@@ -214,37 +208,37 @@ const LAC = () => {
               title: "Balance Sheet",
               content: (
                 <div className="w-full flex">
-                  <div className="w-1/3 flex flex-col">
-                    <div className="p-3">
-                      <h1 className="font-bold text-2xl">New balance sheet</h1>
-                    </div>
-                    <div className="p-3 relative">
-                      <Input type="text" placeholder="Enter Master Group" />
-                      <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                        <FaPlusCircle className="text-xl text-buttoncolor m-auto p-auto mr-2" />
-                      </div>
-                    </div>
-                    <div className="p-3 relative">
-                      <Input type="text" placeholder="Enter Sub Group" />
-                      <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                        <FaPlusCircle className="text-xl text-buttoncolor m-auto p-auto mr-2" />
-                      </div>
-                    </div>
-                    <div className="flex justify-end">
-                      <button className="bg-[#F0F2F5] text-black rounded-lg p-4 h-10 font-semibold text-sm flex items-center justify-center mr-2">
-                        Cancel
-                      </button>
-                      <button className="bg-buttoncolor text-white rounded-lg p-4 h-10 font-semibold text-sm flex items-center justify-center mr-4">
-                        Save
-                      </button>
+                <div className="w-1/3 flex flex-col">
+                  <div className="p-3">
+                    <h1 className="font-bold text-2xl">New balance sheet</h1>
+                  </div>
+                  <div className="p-3 relative">
+                    <Input type="text" placeholder="Enter Master Group" value={masterGroup} onChange={(e)=>handleMasterGroupChange(e)} />
+                    <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                      <FaPlusCircle className="text-xl text-buttoncolor m-auto p-auto mr-2" />
                     </div>
                   </div>
-                    <div className="flex w-1/3 border border-[#6F6F6F]">
-                      <div className="p-4">
-                        <TreeView data={treeData} />
-                      </div>
+                  <div className="p-3 relative">
+                    <Input type="text" placeholder="Enter Sub Group" value={subGroup} onChange={(event)=>handleSubGroupChange(event)} />
+                    <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                      <FaPlusCircle className="text-xl text-buttoncolor m-auto p-auto mr-2" />
                     </div>
                   </div>
+                  <div className="flex justify-end">
+                    <button className="bg-[#F0F2F5] text-black rounded-lg p-4 h-10 font-semibold text-sm flex items-center justify-center mr-2">
+                      Cancel
+                    </button>
+                    <button className="bg-buttoncolor text-white rounded-lg p-4 h-10 font-semibold text-sm flex items-center justify-center mr-4" onClick={handleSave}>
+                      Save
+                    </button>
+                  </div>
+                </div>
+                <div className="flex w-1/3 justify-end">
+                  <div className="p-4">
+                  <TreeView treeData={treeData} />
+                  </div>
+                </div>
+              </div>
               ),
             },
             {

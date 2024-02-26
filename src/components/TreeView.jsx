@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BsPlusSquare, BsDashSquare } from "react-icons/bs";
+import axios from "axios"; // Import axios for making HTTP requests
 
 const TreeNode = ({ node }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -14,7 +15,7 @@ const TreeNode = ({ node }) => {
         {node.children && (
           <button onClick={handleToggle} className="mr-2 p-2">
             {isExpanded ? (
-              <BsDashSquare size={24} className="text-[#6F6F6F]"/>
+              <BsDashSquare size={24} className="text-[#6F6F6F]" />
             ) : (
               <BsPlusSquare size={24} className="text-[#6F6F6F]" />
             )}
@@ -26,7 +27,6 @@ const TreeNode = ({ node }) => {
         <div className="ml-4">
           {node.children.map((child, index) => (
             <div key={index} className="ml-4">
-              <div className="connector"></div>
               <TreeNode node={child} />
             </div>
           ))}
@@ -36,10 +36,29 @@ const TreeNode = ({ node }) => {
   );
 };
 
-export const TreeView = ({ data }) => {
+export const TreeView = () => {
+  const [treeData, setTreeData] = useState([]);
+
+  useEffect(() => {
+    // Fetch data from API when component mounts
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        "http://192.168.0.183:3100/api/getAllBssList"
+      );
+      // Assuming the API response data is an array of nodes
+      setTreeData(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   return (
     <div className="treeview">
-      {data.map((node, index) => (
+      {treeData.map((node, index) => (
         <div key={index} className="ml-4">
           <TreeNode node={node} />
         </div>
