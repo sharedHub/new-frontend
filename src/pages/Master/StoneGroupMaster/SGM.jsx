@@ -238,7 +238,7 @@ const SGM = () => {
             },
             {
               id: 2,
-              title: "Quality",
+              title: "Q/S/C",
               content: (
                 <>
                   <div className="flex w-auto">
@@ -442,6 +442,59 @@ const SGM = () => {
                         onClick={handleAddFields}
                       >
                         Add New <BsFillPlusCircleFill className="ml-1 white" />
+                      </button>
+                    </div>
+                    <div className="flex justify-self-end">
+                      <button className="bg-buttoncolor text-white rounded-lg p-2 h-10 font-semibold text-sm flex items-center justify-center mr-2">
+                        Delete
+                        <MdOutlineDelete className="ml-1 white text-lg" />
+                      </button>
+                      <button className="bg-buttoncolor text-white rounded-lg p-2 h-10 font-semibold text-sm flex items-center justify-center mr-2">
+                        Edit
+                        <TbEdit className="ml-1 white text-lg" />
+                      </button>
+                      <button className="bg-buttoncolor text-white rounded-lg p-2 h-10 font-semibold text-sm flex items-center justify-center mr-2">
+                        Import
+                        <CiImport className="ml-1 white font-medium text-lg" />
+                      </button>
+                      <button className="bg-buttoncolor text-white rounded-lg p-2 h-10 font-semibold text-sm flex items-center justify-center mr-2">
+                        Export
+                        <CiExport className="ml-1 white font-medium text-lg" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ),
+            },
+            {
+              id: 4,
+              title: "Stone Lot",
+              content: (
+                <div className="w-auto">
+                  <div className="grid gap-3 grid-cols-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-5">
+                         <div>
+                          <Input type="text" placeholder="Master Group" />
+                        </div>
+                        <div>
+                          <Input type="text" placeholder="Shape" />
+                        </div>
+                        <div>
+                          <Input type="text" placeholder="Quality" />
+                        </div>
+                        <div>
+                          <Input type="text" placeholder="Colour" />
+                        </div>
+                        <div>
+
+                      </div>
+                    </div>
+                    <div className="flex justify-between">
+                    <div className="flex-initial mt-4">
+                      <button
+                        className="bg-buttoncolor text-white rounded-lg p-2 h-10 font-semibold text-sm flex items-center justify-center mr-2"
+                        onClick={handleAddFields}
+                      >
+                        Create <BsFillPlusCircleFill className="ml-1 white" />
                       </button>
                     </div>
                     <div className="flex justify-self-end">
